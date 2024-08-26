@@ -46,13 +46,14 @@ function animateCircles(){
     let y = coords.y;
 
     circles.forEach(function (circle, index){
+
         circle.style.left = x - 12 + "px";
         circle.style.top = y - 12+ "px";
 
         circle.style.scale = (circles.length - index) / circles.length;
         circle.x = x;
         circle.y = y;
-
+        
         const nextCircle = circles[index + 1] || circles[0];
         x += (nextCircle.x - x) * 0.3;
         y += (nextCircle.y - y) * 0.3;
@@ -66,4 +67,32 @@ menuIcon.oneclick = () => {
     navbar.classList.toggle('active');
 }
 
+
 animateCircles();
+
+const loaderContainer = document.querySelector(".loader-container")
+const pageContent = document.querySelector("#page-content")
+window.addEventListener("load", () =>{
+    loaderContainer.classList.add("hidden")
+    pageContent.classList.add("visible");
+})
+const lenis = new Lenis()
+
+lenis.on('scroll', (e) => {
+  console.log(e)
+})
+
+lenis.on('scroll', ScrollTrigger.update)
+
+gsap.ticker.add((time)=>{
+  lenis.raf(time * 1000)
+})
+
+gsap.ticker.lagSmoothing(0)
+
+requestAnimationFrame(raf)
+
+
+
+
+
